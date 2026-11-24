@@ -17,3 +17,7 @@
 .utmp/
 *.zip
 WebGL Builds/
+# FakeSensor
+FakeSensor/bin/
+FakeSensor/obj/
+!FakeSensor/FakeSensor.csproj
