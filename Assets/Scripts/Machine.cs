@@ -18,6 +18,7 @@ public class Machine : MonoBehaviour
 
     public static event System.Action<Machine> OnStateChanged;
     public MachineState State => state;
+    public float Temperature => temperature;
 
     private Renderer rend;
     private TMP_Text label;
