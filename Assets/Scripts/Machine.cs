@@ -14,6 +14,7 @@ public class Machine : MonoBehaviour
     [SerializeField] private string id;
     [SerializeField] private float temperature;
     [SerializeField] private MachineState state;
+    [SerializeField] float warningTemperature = 80f;
 
     public static event System.Action<Machine> OnStateChanged;
     public MachineState State => state;
@@ -43,7 +44,14 @@ public class Machine : MonoBehaviour
         switch (state)
         {
             case MachineState.Running:
-                rend.material.color = Color.green;
+                if (temperature >= warningTemperature)
+                {
+                    rend.material.color = Color.yellow;
+                }
+                else
+                {
+                    rend.material.color = Color.green;
+                }
                 break;
             case MachineState.Stopped:
                 rend.material.color = Color.gray;

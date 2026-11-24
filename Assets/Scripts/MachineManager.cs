@@ -15,11 +15,6 @@ public class MachineManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        ApplyJson("{\"id\": \"Robot01\", \"temp\": 62.5, \"state\": \"Running\"}");
-    }
-
     public Machine GetMachine(string id)
     {
         if (machines.TryGetValue(id, out Machine machine))

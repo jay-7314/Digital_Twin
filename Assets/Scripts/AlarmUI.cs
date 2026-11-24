@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ public class AlarmUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text alarmText;
 
-    private string alarmedId;
+    private readonly HashSet<string> errorIds = new HashSet<string>();
 
     private void Awake()
     {
@@ -26,13 +27,25 @@ public class AlarmUI : MonoBehaviour
     {
         if (machine.State == MachineState.Error)
         {
-            alarmedId = machine.Id;
-            Show("ALARM: " + machine.Id + " Error");
+            errorIds.Add(machine.Id);
         }
-        else if (machine.Id == alarmedId)
+        else
         {
-            alarmedId = null;
+            errorIds.Remove(machine.Id);
+        }
+
+        Refresh();
+    }
+
+    private void Refresh()
+    {
+        if (errorIds.Count == 0)
+        {
             Hide();
+        }
+        else
+        {
+            Show("ALARM: " + string.Join(", ", errorIds) + " Error");
         }
     }
 
