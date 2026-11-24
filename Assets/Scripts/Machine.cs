@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ public class Machine : MonoBehaviour
     [SerializeField] private string id;
     [SerializeField] private float temperature;
     [SerializeField] private MachineState state;
+
+    public static event System.Action<Machine> OnStateChanged;
+    public MachineState State => state;
 
     private Renderer rend;
     private TMP_Text label;
@@ -31,6 +35,7 @@ public class Machine : MonoBehaviour
         temperature = newTemperature;
         state = newState;
         UpdateVisual();
+        OnStateChanged?.Invoke(this);
     }
 
     private void UpdateVisual()
