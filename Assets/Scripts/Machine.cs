@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public enum MachineState
@@ -14,12 +15,14 @@ public class Machine : MonoBehaviour
     [SerializeField] private MachineState state;
 
     private Renderer rend;
+    private TMP_Text label;
 
     public string Id => id;
 
     private void Awake()
     {
         rend = GetComponent<Renderer>();
+        label = GetComponentInChildren<TMP_Text>();
         UpdateVisual();
     }
 
@@ -43,6 +46,11 @@ public class Machine : MonoBehaviour
             case MachineState.Error:
                 rend.material.color = Color.red;
                 break;
+        }
+
+        if (label != null)
+        {
+            label.text = id + "\n" + temperature.ToString("F1") + " C\n" + state;
         }
     }
 }
